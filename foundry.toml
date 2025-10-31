@@ -1,0 +1,17 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc = "0.8.24"
+
+# EXCLUDE SCRIPTS FROM BUILD
+script = "script"
+test = "test"
+build_info = true
+extra_output = []
+
+# ONLY COMPILE src/ CONTRACTS
+# Scripts are only used in forge script
+
+[etherscan]
+arc_testnet = { key = "ANY", url = "https://testnet.arcscan.xyz/api" }
