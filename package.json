@@ -23,3 +23,11 @@
   },
   "homepage": "https://github.com/EmmyPencilAI/Thalexa-Onchain#readme"
 }
+{
+  "scripts": {
+    "build": "npx expo export --platform web"
+  },
+  "resolutions": {
+    "@babel/core": "^7.24.0"
+  }
+}
