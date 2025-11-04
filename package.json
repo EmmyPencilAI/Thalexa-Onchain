@@ -1,25 +1,12 @@
 {
-  "name": "thalexa-arc",
+  "name": "thalexa-onchain",
   "version": "1.0.0",
-  "description": "*Built on Solana Blockchain*",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "vercel-build": "cd frontend && npx expo export --platform web",
+    "build": "cd frontend && npx expo export --platform web"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EmmyPencilAI/Thalexa-Onchain.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/EmmyPencilAI/Thalexa-Onchain/issues"
-  },
-  "homepage": "https://github.com/EmmyPencilAI/Thalexa-Onchain#readme"
+  "devDependencies": {
+    "expo": "~51.0.28"
+  }
 }
