@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "builds": [
         {
             "src": "package.json",
@@ -16,8 +15,8 @@
         }
     ]
 }
-=======
+
   "builds": [{ "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }],
   "routes": [{ "src": "/.*", "dest": "/dist/index.html" }]
-}
->>>>>>> b4bc73fbbd128e27bdb4e5f2f8c45cbc90180f60
+
+b4bc73fbbd128e27bdb4e5f2f8c45cbc90180f60
