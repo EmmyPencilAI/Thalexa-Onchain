@@ -11,10 +11,10 @@ let pinata;
 if (process.env.PINATA_API_KEY && process.env.PINATA_SECRET_API_KEY) {
     try {
         const PinataSDK = require('@pinata/sdk');
-        pinata = new PinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_API_KEY);
-        console.log('Pinata LIVE');
+        pinata = PinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_API_KEY);
+        console.log('Pinata connected');
     } catch (e) {
-        console.warn('Pinata failed');
+        console.warn('Pinata failed to load');
     }
 }
 
@@ -29,7 +29,11 @@ app.post('/create-batch', async (req, res) => {
 
         let uri = 'ipfs://mock';
         if (pinata) {
-            const metadata = { name: `Batch ${batchId}`, origin, date: new Date().toISOString() };
+            const metadata = {
+                name: `Batch ${batchId}`,
+                origin,
+                date: new Date().toISOString(),
+            };
             const result = await pinata.pinJSONToIPFS(metadata);
             uri = `https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`;
         }
@@ -52,5 +56,5 @@ app.get('/qr/:batchId', async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-    console.log(`Backend LIVE at http://localhost:${PORT}`);
+    console.log(`Backend running on port ${PORT}`);
 });
