@@ -8,12 +8,11 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import { Camera } from 'expo-camera';
 import { StatusBar } from 'expo-status-bar';
 
-// CHANGE THIS TO YOUR PC IP
-const BACKEND_URL = 'http://192.168.86.142'; // YOUR IP
-
+// LIVE BACKEND URL
+const BACKEND_URL = 'https://thalexa-backend.vercel.app';
 
 const App = () => {
   const [batchId, setBatchId] = useState('');
@@ -25,7 +24,7 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
   }, []);
@@ -46,16 +45,16 @@ const App = () => {
         setQrCode(qrData.qr);
         Alert.alert('Success', `IPFS: ${data.uri}`);
       } else {
-        Alert.alert('Error', data.error);
+        Alert.alert('Error', data.error || 'Failed');
       }
-    } catch (e: any) {
-      Alert.alert('Network Error', 'Is backend running?');
+    } catch (e) {
+      Alert.alert('Network Error', 'Check backend URL');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleScan = async ({ data }: { data: string }) => {
+  const handleBarCodeScanned = ({ data }: { data: string }) => {
     setScanning(false);
     const id = data.split('/').pop();
     setBatchId(id || '');
@@ -66,7 +65,7 @@ const App = () => {
     <View style={styles.container}>
       <Image source={require('./assets/logo.png')} style={styles.logo} />
       <Text style={styles.title}>Thalexa</Text>
-      <Text style={styles.subtitle}> Where Trust Meets Traceability.</Text>
+      <Text style={styles.subtitle}>Trace Every Bean</Text>
 
       <TextInput placeholder="Batch ID" value={batchId} onChangeText={setBatchId} style={styles.input} />
       <TextInput placeholder="Origin" value={origin} onChangeText={setOrigin} style={styles.input} />
@@ -87,7 +86,10 @@ const App = () => {
 
       {scanning && hasPermission && (
         <View style={styles.scanner}>
-          <BarCodeScanner onBarCodeScanned={handleScan} style={StyleSheet.absoluteFillObject} />
+          <Camera
+            onBarCodeScanned={scanning ? handleBarCodeScanned : undefined}
+            style={StyleSheet.absoluteFillObject}
+          />
           <TouchableOpacity style={styles.close} onPress={() => setScanning(false)}>
             <Text style={styles.closeText}>×</Text>
           </TouchableOpacity>
