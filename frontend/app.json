@@ -15,19 +15,26 @@
             "**/*"
         ],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.emmypencilai.thalexa"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/logo.png",
                 "backgroundColor": "#F5F5DC"
-            }
+            },
+            "package": "com.emmypencilai.thalexa"
         },
         "web": {
             "favicon": "./assets/logo.png"
         },
         "plugins": [
-            "expo-camera"
+            [
+                "expo-camera",
+                {
+                    "cameraPermission": "Allow Thalexa to access camera for QR scanning."
+                }
+            ]
         ]
     }
 }

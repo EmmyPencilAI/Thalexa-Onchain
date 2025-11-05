@@ -11,7 +11,7 @@ let pinata;
 if (process.env.PINATA_API_KEY && process.env.PINATA_SECRET_API_KEY) {
     try {
         const PinataSDK = require('@pinata/sdk');
-        pinata = PinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_API_KEY);
+        pinata = new PinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_API_KEY);
         console.log('Pinata connected');
     } catch (e) {
         console.warn('Pinata failed to load');
